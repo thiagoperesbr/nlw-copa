@@ -3,7 +3,7 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
-  return <h1>Contagem: {props.count}</h1>;
+  return <h1 className="text-violet-500">Contagem: {props.count}</h1>;
 }
 
 export const getServerSideProps = async () => {
