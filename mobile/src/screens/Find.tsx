@@ -1,13 +1,12 @@
 import { useState } from "react";
-
 import { Heading, useToast, VStack } from "native-base";
+import { useNavigation } from "@react-navigation/native";
 
 import { Header } from "../components/Header";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 
 import { api } from "../services/api";
-import { useNavigation } from "@react-navigation/native";
 
 export function Find() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,13 +28,14 @@ export function Find() {
       }
 
       await api.post("/pools/join", { code });
-      navigate("pools");
 
       toast.show({
         title: "Você entrou no bolão com sucesso",
         placement: "top",
         bgColor: "green.500",
       });
+
+      navigate("pools");
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -66,7 +66,7 @@ export function Find() {
 
   return (
     <VStack flex={1} bgColor="gray.900">
-      <Header title="Buscar por código" showBackButton />
+      <Header title="Buscar por código" showBackButton onShare={() => {}} />
 
       <VStack mt={8} mx={5} alignItems="center">
         <Heading

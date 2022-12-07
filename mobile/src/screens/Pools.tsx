@@ -45,7 +45,7 @@ export function Pools() {
 
   return (
     <VStack flex={1} bgColor="gray.900">
-      <Header title="Meus bolões" />
+      <Header title="Meus bolões" onShare={() => {}} />
       <VStack
         mt={6}
         mx={5}
