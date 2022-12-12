@@ -28,6 +28,7 @@ interface Props {
   onGuessConfirm: () => void;
   setFirstTeamPoints: (value: string) => void;
   setSecondTeamPoints: (value: string) => void;
+  isLoaded: boolean;
 }
 
 export function Game({
@@ -35,6 +36,7 @@ export function Game({
   setFirstTeamPoints,
   setSecondTeamPoints,
   onGuessConfirm,
+  isLoaded,
 }: Props) {
   const { colors, sizes } = useTheme();
 
@@ -72,6 +74,9 @@ export function Game({
           code={data.firstTeamCountryCode}
           position="right"
           onChangeText={setFirstTeamPoints}
+          palpite={
+            data.guess === null ? "" : data.guess.firstTeamPoints.toString()
+          }
         />
 
         <X color={colors.gray[300]} size={sizes[6]} />
@@ -80,16 +85,29 @@ export function Game({
           code={data.secondTeamCountryCode}
           position="left"
           onChangeText={setSecondTeamPoints}
+          palpite={
+            data.guess === null ? "" : data.guess.secondTeamPoints.toString()
+          }
         />
       </HStack>
 
-      {!data.guess && (
+      {!data.guess && new Date(data.date).getTime() < new Date().getTime() ? (
         <Button
           size="xs"
           w="full"
           bgColor="green.500"
           mt={4}
           onPress={onGuessConfirm}
+          isLoading={isLoaded}
+          _loading={{
+            bg: "amber.400:alpha.70",
+            _text: {
+              color: "coolGray.700",
+            },
+          }}
+          _spinner={{
+            color: "white",
+          }}
         >
           <HStack alignItems="center">
             <Text color="white" fontSize="xs" fontFamily="heading" mr={3}>
@@ -99,6 +117,16 @@ export function Game({
             <Check color={colors.white} size={sizes[4]} />
           </HStack>
         </Button>
+      ) : !data.guess ? (
+        <Button size="xs" w="full" bgColor="gray.600" mt={4}>
+          <HStack alignItems="center">
+            <Text color="gray.500" fontSize="xs" fontFamily="heading" mr={3}>
+              TEMPO ESGOTADO
+            </Text>
+          </HStack>
+        </Button>
+      ) : (
+        ""
       )}
     </VStack>
   );
