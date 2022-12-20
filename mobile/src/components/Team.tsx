@@ -12,10 +12,10 @@ interface Props {
 }
 
 export function Team({ code, position, onChangeText, palpite }: Props) {
-  const [palpiteAtual, setNovoPalpite] = useState(palpite);
+  const [palpiteAtual, setNewPalpite] = useState(palpite);
 
   function atualizaPontos(event) {
-    setNovoPalpite(event);
+    setNewPalpite(event);
     onChangeText(event);
   }
 
@@ -33,7 +33,11 @@ export function Team({ code, position, onChangeText, palpite }: Props) {
         keyboardType="numeric"
         value={palpiteAtual}
         onChangeText={atualizaPontos}
-        isDisabled={palpite === "" ? false : true}
+        isDisabled={palpite >= "" ? true : false}
+        _disabled={{
+          opacity: 100,
+          borderColor: "green.500",
+        }}
       />
 
       {position === "right" && (

@@ -22,7 +22,7 @@ export function AppRoutes() {
         tabBarInactiveTintColor: colors.gray[300],
         tabBarStyle: {
           position: "absolute",
-          height: sizes[22],
+          height: sizes[20],
           borderTopWidth: 0,
           backgroundColor: colors.gray[800],
         },

@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify"
 import { z } from "zod"
 import { prisma } from "../lib/prisma"
 import { authenticate } from "../plugins/authenticate"
+import { gameRoutes } from './game';
 
 export async function guessRoutes(fastify: FastifyInstance) {
   fastify.get('/guesses/count', async () => {
@@ -37,7 +38,7 @@ export async function guessRoutes(fastify: FastifyInstance) {
 
     if (!participant) {
       return reply.status(400).send({
-        message: "You're not allowed to create a guess inside this pool."
+        message: "Você não pode dar um palpite nesse bolão"
       })
     }
 
@@ -52,7 +53,7 @@ export async function guessRoutes(fastify: FastifyInstance) {
 
     if (guess) {
       return reply.status(400).send({
-        message: "You already sent a guess to this game on this pool."
+        message: "Você já deu um palpite nesse jogo"
       })
     }
 
@@ -64,13 +65,13 @@ export async function guessRoutes(fastify: FastifyInstance) {
 
     if (!game) {
       return reply.status(400).send({
-        message: "Game not found."
+        message: "Jogo não encontrado"
       })
     }
 
-    if (game.date < new Date()) {
+    if (new Date(game.date).getTime() < new Date().getTime()) {
       return reply.status(400).send({
-        message: "You cannot send guesses after the game date."
+        message: "Desculpe mas esse jogo já aconteceu"
       })
     }
 
@@ -84,5 +85,43 @@ export async function guessRoutes(fastify: FastifyInstance) {
     })
 
     return reply.status(201).send()
+  })
+
+  fastify.get('/guesses/results/:id', async (request) => {
+    const getPoolParams = z.object({
+      id: z.string(),
+    })
+
+    const { id } = getPoolParams.parse(request.params)
+
+    const guesses = await prisma.guess.findMany({
+      where: {
+        participant: {
+          poolId: id,
+        },
+      },
+      include: {
+        game: {
+          select: {
+            id: true,
+            date: true,
+            resultFirstTeamPoints: true,
+            resultSecondTeamPoints: true,
+          },
+        },
+        participant: {
+          select: {
+            user: {
+              select: {
+                name: true,
+                avatarUrl: true,
+              }
+            }
+          }
+        }
+      },
+    })
+
+    return {guesses}
   })
 }

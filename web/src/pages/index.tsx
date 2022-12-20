@@ -1,23 +1,25 @@
-interface HomeProps {
-  poolCount: number;
-  guessCount: number;
-  userCount: number;
-}
-
+import { FormEvent, useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
+
 import appPreviewImg from "../assets/appPreviewImage.png";
 import logoImg from "../assets/logo.svg";
 import usersAvatarExampleImg from "../assets/usersAvatarExampleImg.png";
 import iconCheckImg from "../assets/icon.svg";
+
 import { api } from "../lib/axios";
-import { FormEvent, useState } from "react";
+
+interface HomeProps {
+  poolCount: number;
+  guesseCount: number;
+  userCount: number;
+}
 
 export default function Home(props: HomeProps) {
   const [poolTitle, setPoolTitle] = useState("");
 
   async function createPool(event: FormEvent) {
     event.preventDefault();
-
     try {
       const response = await api.post("/pools", {
         title: poolTitle,
@@ -27,14 +29,11 @@ export default function Home(props: HomeProps) {
 
       await navigator.clipboard.writeText(code);
 
-      alert(
-        "Bolão criado com sucesso, o código foi copiado para a área de transferência!"
-      );
-
+      toast.success("Bolão criado com sucesso!");
       setPoolTitle("");
     } catch (err) {
       console.log(err);
-      alert("Falha ao criar o bolão, tente novamente!");
+      toast.error("Falha ao criar o bolão!");
     }
   }
 
@@ -42,14 +41,11 @@ export default function Home(props: HomeProps) {
     <div className="max-w-[1124px] h-screen mx-auto grid grid-cols-2 gap-28 items-center">
       <main>
         <Image src={logoImg} alt="NLW Copa" />
-
         <h1 className="mt-14 text-white text-5xl font-bold leading-tight">
-          Crie seu próprio bolão da Copa e compartilhe entre amigos!
+          Crie seu próprio bolão da copa e compartilhe entre amigos!
         </h1>
-
         <div className="mt-10 flex items-center gap-2">
-          <Image src={usersAvatarExampleImg} alt="" />
-
+          <Image src={usersAvatarExampleImg} alt="Avatar Imagem" />
           <strong className="text-gray-100 text-xl">
             <span className="text-ignite-500">+{props.userCount}</span> pessoas
             já estão usando
@@ -65,10 +61,7 @@ export default function Home(props: HomeProps) {
             onChange={(event) => setPoolTitle(event.target.value)}
             value={poolTitle}
           />
-          <button
-            className="bg-yellow-500 px-6 py-4 rounded text-gray-900 font-bold text-sm uppercase hover:bg-yellow-700"
-            type="submit"
-          >
+          <button className="bg-yellow-500 px-6 py-4 rounded text-gray-900 font-bold text-sm uppercase hover:bg-yellow-700">
             Criar meu bolão
           </button>
         </form>
@@ -79,29 +72,26 @@ export default function Home(props: HomeProps) {
         </p>
 
         <div className="mt-10 pt-10 border-t border-gray-600 flex items-center justify-between text-gray-100">
-          <div className="flex items-center gap-6">
-            <Image src={iconCheckImg} alt="" />
+          <div className="flex items-center gap-6 ">
+            <Image src={iconCheckImg} alt="iconCheck" quality={100} />
             <div className="flex flex-col">
               <span className="font-bold text-2xl">+{props.poolCount}</span>
-              <span>Bolões criados</span>
+              <span>Bolões Criados</span>
             </div>
           </div>
-
-          <div className="w-px h-14 bg-gray-600" />
-
-          <div className="flex items-center gap-6">
-            <Image src={iconCheckImg} alt="" />
+          <div className="w-px h-14 bg-gray-600"></div>
+          <div className="flex items-center gap-6 ">
+            <Image src={iconCheckImg} alt="iconCheck" quality={100} />
             <div className="flex flex-col">
-              <span className="font-bold text-2xl">+{props.guessCount}</span>
-              <span>Palpites enviados</span>
+              <span className="font-bold text-2xl">+{props.guesseCount}</span>
+              <span>Palpites Enviados</span>
             </div>
           </div>
         </div>
       </main>
-
       <Image
         src={appPreviewImg}
-        alt="Dois celulares exibindo uma prévia da aplicação móvel do NLW Copa"
+        alt="Dois celular exibindo uma prévida do app da NLW Copa"
         quality={100}
       />
     </div>
@@ -119,7 +109,7 @@ export const getServerSideProps = async () => {
   return {
     props: {
       poolCount: poolCountResponse.data.count,
-      guessCount: guessCountResponse.data.count,
+      guesseCount: guessCountResponse.data.count,
       userCount: userCountResponse.data.count,
     },
   };

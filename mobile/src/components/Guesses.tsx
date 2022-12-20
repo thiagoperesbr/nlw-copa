@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { useToast, FlatList } from "native-base";
+import { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { FlatList, useToast } from "native-base";
 
 import { api } from "../services/api";
 
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export function Guesses({ poolId, code }: Props) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoadingAposta, setIsLoadingAposta] = useState(false);
   const [games, setGames] = useState<GameProps[]>([]);
   const [firstTeamPoints, setFirstTeamPoints] = useState("");
@@ -29,9 +30,8 @@ export function Guesses({ poolId, code }: Props) {
       setGames(response.data.games);
     } catch (error) {
       console.log(error);
-
       toast.show({
-        title: "Não foi possível carregar os jogos",
+        title: "Não foi possível carregar os bolões",
         placement: "top",
         bgColor: "red.500",
       });
@@ -49,7 +49,7 @@ export function Guesses({ poolId, code }: Props) {
           setIsLoadingAposta(false);
         }, 2000);
 
-        return toast.show({
+        toast.show({
           title: "Informe o placar do palpite",
           placement: "top",
           bgColor: "red.500",
@@ -61,7 +61,7 @@ export function Guesses({ poolId, code }: Props) {
         });
 
         toast.show({
-          title: "Palpite realizado com sucesso",
+          title: "Palpite efetuado com sucesso",
           placement: "top",
           bgColor: "green.500",
         });
@@ -71,7 +71,6 @@ export function Guesses({ poolId, code }: Props) {
       }
     } catch (error) {
       console.log(error);
-
       toast.show({
         title: "Não foi possível enviar o palpite",
         placement: "top",
@@ -87,8 +86,6 @@ export function Guesses({ poolId, code }: Props) {
   if (isLoading) {
     return <Loading />;
   }
-
-  games.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
     <FlatList

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Share } from "react-native";
 import { HStack, useToast, VStack } from "native-base";
 import { useRoute } from "@react-navigation/native";
@@ -10,6 +10,8 @@ import { PoolHeader } from "../components/PoolHeader";
 import { EmptyMyPoolList } from "../components/EmptyMyPoolList";
 import { Option } from "../components/Option";
 import { Guesses } from "../components/Guesses";
+import { ModalRules } from "../components/ModalRules";
+import { RankingCard } from "../components/RankingCard";
 
 import { api } from "../services/api";
 
@@ -25,6 +27,7 @@ export function Details() {
   const [poolDetails, setPoolDetails] = useState<PoolCardProps>(
     {} as PoolCardProps
   );
+  const [showModal, setShowModal] = useState(false);
 
   const route = useRoute();
   const toast = useToast();
@@ -79,6 +82,19 @@ export function Details() {
 
           <HStack bgColor="gray.800" p={1} rounded="sm" mb={5}>
             <Option
+              isSelected={true}
+              title="Regras do bolão"
+              onPress={() => setShowModal(true)}
+            />
+
+            <ModalRules
+              showModal={showModal}
+              setShowModal={() => setShowModal(false)}
+            />
+          </HStack>
+
+          <HStack bgColor="gray.800" p={1} rounded="sm" mb={5}>
+            <Option
               title="Seus palpites"
               isSelected={optionSelected === "guesses"}
               onPress={() => setOptionSelected("guesses")}
@@ -90,7 +106,11 @@ export function Details() {
             />
           </HStack>
 
-          <Guesses poolId={poolDetails.id} code={poolDetails.code} />
+          {optionSelected === "guesses" ? (
+            <Guesses poolId={poolDetails.id} code={poolDetails.code} />
+          ) : (
+            <RankingCard poolId={poolDetails.id} />
+          )}
         </VStack>
       ) : (
         <EmptyMyPoolList code={poolDetails.code} />

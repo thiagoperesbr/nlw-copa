@@ -42,7 +42,7 @@ export function Find() {
 
       if (error.response?.data?.message === "Pool not found.") {
         return toast.show({
-          title: "Bolão não encontrado!",
+          title: "Bolão não encontrado",
           placement: "top",
           bgColor: "red.500",
         });
@@ -50,7 +50,7 @@ export function Find() {
 
       if (error.response?.data?.message === "You already joined this pool.") {
         return toast.show({
-          title: "Você já está nesse bolão!",
+          title: "Você já está nesse bolão",
           placement: "top",
           bgColor: "red.500",
         });
@@ -84,6 +84,7 @@ export function Find() {
           placeholder="Qual o código do bolão?"
           autoCapitalize="characters"
           onChangeText={setCode}
+          value={code}
         />
 
         <Button

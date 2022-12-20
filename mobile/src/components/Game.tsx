@@ -118,7 +118,7 @@ export function Game({
           </HStack>
         </Button>
       ) : !data.guess ? (
-        <Button size="xs" w="full" bgColor="gray.600" mt={4}>
+        <Button size="xs" w="full" bgColor="gray.700" mt={4}>
           <HStack alignItems="center">
             <Text color="gray.500" fontSize="xs" fontFamily="heading" mr={3}>
               TEMPO ESGOTADO

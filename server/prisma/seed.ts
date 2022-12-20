@@ -13,7 +13,7 @@ async function main() {
 
   const pool = await prisma.pool.create({
     data: {
-      title: 'Example Pool',
+      title: 'Bolão Exemplo',
       code: 'BOL123',
       ownerId: user.id,
 
@@ -38,6 +38,8 @@ async function main() {
       date: '2202-11-26T12:00:00.201Z',
       firstTeamCountryCode: 'BR',
       secondTeamCountryCode: 'AR',
+      resultFirstTeamPoints: 2,
+      resultSecondTeamPoints: 1,
 
       guesses: {
         create: {

@@ -8,6 +8,7 @@ import { AppRoutes } from "./app.routes";
 
 export function Routes() {
   const { user } = useAuth();
+
   return (
     <Box flex={1} bg="gray.900">
       <NavigationContainer>
