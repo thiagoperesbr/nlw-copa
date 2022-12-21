@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { PlusCircle, SoccerBall } from "phosphor-react-native";
 
-import { Platform } from "react-native";
 import { useTheme } from "native-base";
 
 import { New } from "../screens/New";
@@ -28,7 +27,7 @@ export function AppRoutes() {
         },
         tabBarItemStyle: {
           position: "relative",
-          top: Platform.OS === "android" ? -10 : 0,
+          top: 0,
         },
       }}
     >
@@ -49,7 +48,7 @@ export function AppRoutes() {
           tabBarIcon: ({ color }) => (
             <SoccerBall color={color} size={sizes[6]} />
           ),
-          tabBarLabel: "Meus bolões",
+          tabBarLabel: "Meus Bolões",
         }}
       />
       <Screen

@@ -12,6 +12,7 @@
     "@expo-google-fonts/roboto": "^0.2.2",
     "@react-navigation/bottom-tabs": "^6.4.3",
     "@react-navigation/native": "^6.0.16",
+    "@react-navigation/native-stack": "^6.9.7",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
     "axios": "^1.2.0",

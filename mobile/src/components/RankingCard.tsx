@@ -47,29 +47,59 @@ export function RankingCard({ poolId }: Props) {
           dados.firstTeamPoints === dados.game.resultFirstTeamPoints &&
           dados.secondTeamPoints === dados.game.resultSecondTeamPoints
         ) {
-          console.log("PLACAR COMPLETO");
+          return { dados, pontuacao: points + 25 };
+        } else if (
+          dados.firstTeamPoints > dados.secondTeamPoints &&
+          dados.firstTeamPoints === dados.game.resultFirstTeamPoints &&
+          dados.secondTeamPoints !== dados.game.resultSecondTeamPoints
+        ) {
+          return { dados, pontuacao: points + 18 };
+        } else if (
+          dados.secondTeamPoints > dados.firstTeamPoints &&
+          dados.secondTeamPoints === dados.game.resultSecondTeamPoints &&
+          dados.firstTeamPoints !== dados.game.resultFirstTeamPoints
+        ) {
           return { dados, pontuacao: points + 18 };
         } else if (
           dados.firstTeamPoints > dados.secondTeamPoints &&
-          dados.game.resultFirstTeamPoints > dados.game.resultSecondTeamPoints
+          dados.firstTeamPoints !== dados.game.resultFirstTeamPoints &&
+          dados.secondTeamPoints === dados.game.resultSecondTeamPoints
         ) {
-          console.log("ACERTOU GANHADOR");
           return { dados, pontuacao: points + 12 };
+        } else if (
+          dados.secondTeamPoints > dados.firstTeamPoints &&
+          dados.secondTeamPoints !== dados.game.resultSecondTeamPoints &&
+          dados.firstTeamPoints === dados.game.resultFirstTeamPoints
+        ) {
+          return { dados, pontuacao: points + 12 };
+        } else if (
+          dados.firstTeamPoints > dados.secondTeamPoints &&
+          dados.game.resultFirstTeamPoints >
+            dados.game.resultSecondTeamPoints &&
+          dados.firstTeamPoints !== dados.game.resultFirstTeamPoints &&
+          dados.secondTeamPoints !== dados.game.resultSecondTeamPoints
+        ) {
+          return { dados, pontuacao: points + 8 };
+        } else if (
+          dados.secondTeamPoints > dados.firstTeamPoints &&
+          dados.game.resultSecondTeamPoints >
+            dados.game.resultFirstTeamPoints &&
+          dados.secondTeamPoints !== dados.game.resultSecondTeamPoints &&
+          dados.firstTeamPoints !== dados.game.resultFirstTeamPoints
+        ) {
+          return { dados, pontuacao: points + 8 };
         } else if (
           dados.firstTeamPoints === dados.secondTeamPoints &&
           dados.game.resultFirstTeamPoints ===
             dados.game.resultSecondTeamPoints &&
-          dados.game.resultFirstTeamPoints !== -1 &&
-          dados.game.resultSecondTeamPoints !== -1
+          dados.firstTeamPoints !== dados.game.resultFirstTeamPoints &&
+          dados.secondTeamPoints !== dados.game.resultSecondTeamPoints
         ) {
-          console.log("ACERTOU GANHADOR");
-          return { dados, pontuacao: points + 7 };
+          return { dados, pontuacao: points + 8 };
         } else {
-          console.log("Errou");
           return { dados, pontuacao: points };
         }
       else {
-        console.log("Errou");
         return { dados, pontuacao: points };
       }
     });
