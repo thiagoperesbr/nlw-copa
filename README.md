@@ -47,11 +47,21 @@ O deploy da aplicação está disponível abaixo:
 
 ### Frontend
 
-[![Deploy with Vercel](https://vercel.com/button)](https://nlw-copa-tpbr.vercel.app/)
+<a href="https://nlw-copa-web-ptbr.vercel.app/">
+  <img src="https://vercel.com/button" width="8%">
+</a>
 
 ### Backend
 
-[![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://nlw-copa-6d80.onrender.com)
+<a href="https://nlw-copa-server.up.railway.app/">
+  <img src="https://camo.githubusercontent.com/081df3dd8cff37aab35044727b02b94a8e948052487a8c6253e190f5940d776d/68747470733a2f2f7261696c7761792e6170702f627574746f6e2e737667" width="12%">
+</a>
+
+### Mobile
+
+<a href="https://expo.dev/@thiagoperesbr/nlw-copa-mobile?serviceType=classic&distribution=expo-go">
+  <img src="https://www.vectorlogo.zone/logos/expoio/expoio-ar21.svg" width="7%">
+</a>
 
 ## 🚀 Tecnologias
 
@@ -91,6 +101,11 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 1. [Git](https://git-scm.com)
 2. [Node.js](https://nodejs.org/en/)
 3. [VSCode](https://code.visualstudio.com/)
+
+### Variáveis de Ambiente
+
+- Na aplicação Mobile, você deve definir o CLIENT_ID, que é o ID do cliente OAuth 2.0, do Google Cloud.
+- Para conseguir esse ID, siga os passos mostrados [aqui](https://support.google.com/cloud/answer/6158849?hl=en).
 
 ### 🎲 Rodando o servidor (Back End)
 
