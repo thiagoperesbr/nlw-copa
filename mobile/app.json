@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "mobile",
-    "slug": "mobile",
+    "slug": "nlw-copa-mobile",
     "scheme": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -29,6 +29,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8e838397-67c8-4362-85fa-33ab2c8583bc"
+      }
+    },
+    "owner": "thiagoperesbr"
   }
 }
